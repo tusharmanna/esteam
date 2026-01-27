@@ -1,0 +1,79 @@
+/*---------------------------------------------
+    :: Goal 02
+-----------------------------------------------*/
+.goal-area-two {
+    padding-top: 100px;
+    padding-bottom: 85px;
+
+    @media #{$xs-to-md-max} {
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+
+    .shape {
+        position: absolute;
+        right: 0px;
+        top: -40px;
+
+        @media #{$xs-to-md-max} {
+            display: none;
+        }
+    }
+
+    .goal-divider {
+        border-top: 1px solid var(--primary-title);
+        border-bottom: 1px solid var(--primary-title);
+        padding-top: 8px;
+        padding-bottom: 39px;
+    }
+}
+
+.circle-icon-two {
+    width: 50px;
+    min-width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-soft-color);
+
+    @media #{$xs-to-md-max} {
+        width: 35px;
+        min-width: 35px;
+        height: 35px;
+    }
+
+    img {
+        margin-left: 30px;
+    }
+}
+
+.goal-card-two {
+    display: flex;
+    gap: 38px;
+    align-items: center;
+
+    .title {
+        padding-top: 30px;
+        font-size: 26px;
+        font-weight: 700;
+        line-height: 1.7;
+
+        @media #{$xs-to-md-max} {
+            font-size: 18px;
+            padding-top: 24px;
+        }
+    }
+
+    .pera {
+        padding-top: 5px;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.75;
+
+        @media #{$xs-to-md-max} {
+            font-size: 14px;
+        }
+    }
+}

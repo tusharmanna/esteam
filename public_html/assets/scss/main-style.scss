@@ -1,0 +1,62 @@
+/*----------------------------------------------
+    Index Of Script
+------------------------------------------------
+
+    @version         : 1.0.0
+    @Template Name   : Wodmart
+    @Template author : PointTheme
+
+    :: Mixins         :: Variables
+    :: Global         :: Button
+    :: Animation      :: Hero 02
+    :: Header 02      :: Footer
+    :: Header 01      :: Hero 01
+    :: Breadcrumb     :: Pagination
+    :: Subscription   :: Landing One
+    :: Landing Two    :: About
+    :: Shop           :: Shop Details
+    :: Wishlist       :: FAQ
+    :: Blog           :: Blog Details
+    :: Contact        :: Checkout
+    :: Login          :: Terms Condition
+
+------------------------------------------------
+    End-of Script
+------------------------------------------------*/
+
+// Global SCSS
+    @import "global/mixins";
+    @import "global/variables";
+    @import "global/global";
+    @import "global/button";
+    @import "global/animation";
+
+
+// layout
+    @import "layout/header-one";
+    @import "layout/header-two";
+    @import "layout/footer";
+    @import "layout/hero-one";
+    @import "layout/hero-two";
+
+// Sections
+    @import "sections/breadcrumb";
+    @import "sections/pagination";
+    @import "sections/subscription";
+
+// Pages
+    @import "pages/landing_one";
+    @import "pages/landing_two";
+    @import "pages/about";
+    @import "pages/shop";
+    @import "pages/shop-details";
+    @import "pages/wishlist";
+    @import "pages/track";
+    @import "pages/faq";
+    @import "pages/blog";
+    @import "pages/blog-details";
+    @import "pages/contact";
+    @import "pages/checkout";
+    @import "pages/login";
+    @import "pages/terms-condition";
+

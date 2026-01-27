@@ -1,0 +1,141 @@
+.subscription-bg {
+  padding: 31px 0px;
+  background-color: var(--secondary-color);
+  position: relative;
+  z-index: 12;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../../assets/images/gallery/subscription-banner.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: .3;
+    transition: opacity 0.3s ease;
+  }
+}
+.subscription-content {
+  position: relative;
+  z-index: 12;
+  .title {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: var(--primary-title);
+    margin-bottom: 3px;
+    @media #{$xs-to-md-max} {
+      font-size: 18px;
+    }
+  }
+  .pera {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.75;
+    color: var(--primary-title);
+    @media #{$xs-to-md-max} {
+      font-size: 14px;
+    }
+  }
+}
+.left-wrapper{
+  display: flex;
+  gap: 60px;
+  align-items: center;
+  flex-wrap: wrap;
+  @media #{$xs-to-md-max}{
+    gap: 20px;
+  }
+
+}
+.right-wrapper{
+  display: flex;
+  gap: 46px;
+  align-items: center;
+  flex-wrap: wrap;
+  @media #{$xs-to-md-max}{
+    gap: 20px;
+  }
+
+}
+.subscription-input-section {
+  position: relative;
+  .subscription-input {
+    width: 450px;
+    height: 65px;
+    background-color: var(--white);
+    border: 1px solid var(--white);
+    padding: 19px 31px;
+    border-radius: 30px;
+   @media #{$xs-to-md-max}{
+       width: 380px;
+      height: 50px;
+      padding: 14px 24px;
+    }
+    @media #{$vxs}{
+      width: 250px;
+      padding: 12px 20px;
+    }
+    &:focus{
+      border: none;
+    }
+    &::placeholder {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.75;
+      color: var(--placeholder-title);
+      @media #{$xs-to-md-max}{
+        font-size: 14px;
+      }
+    }
+  }
+}
+.subscription-wrapper{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.download-app{
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+}
+.subscribe-btn{
+  background-color: var(--secondary-color);
+  padding: 10px 29px;
+  border-radius: 30px;
+  border: 1px solid var(--secondary-color);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--primary-title);
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  .icon{
+    display: none;
+  }
+  @media #{$xs-to-md-max}{
+    font-size: 14px;
+    padding: 8px 20px;
+    top: 6px;
+  }
+  @media #{$vxs}{
+    .btn-text{
+      display: none;
+    }
+    .icon{
+      display: block;
+      font-size: 14px;
+    }
+  }
+  &:hover{
+    background-color: var(--white);
+    color: var(--secondary-color);
+
+  }
+}

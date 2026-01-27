@@ -1,0 +1,83 @@
+/*---------------------------------------------
+    :: Track
+-----------------------------------------------*/
+.tracking-content{
+  .title{
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.66;
+    color: var(--primary-title);
+    margin-bottom: 14px;
+    @media #{$xs-to-md-max}{
+        font-size: 18px;
+    }
+  }
+  .pera{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.75;
+    color: var(--tertiary-title);
+    margin-bottom: 46px;
+    @media #{$xs-to-md-max}{
+        font-size: 14px;
+    }
+  }
+  .tracking-form{
+    .form-control{
+      border-radius: 30px;
+      border: 1px solid var(--primary-title);
+      padding: 23px 32px;
+      color: var(--primary-title);
+      &::placeholder{
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1;
+        color: var(--tertiary-white);
+      }
+      &:focus{
+        border: 1px solid var(--primary-color);
+      }
+
+    }
+    .floating-label{
+      top: 0px;
+      left: 23px;
+      height: 18px;
+      width: fit-content;
+      background-color: var(--white);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1;
+      color: var(--primary-title);
+      padding:0px;
+      opacity: 1 !important;
+      transform: scale(1) translateY(-.5rem) translateX(.15rem) !important;
+  
+    }
+    .fill-pill-btn{
+      padding: 15px 40px;
+      background-color: var(--primary-color);
+      border: 1px solid var(--primary-color);
+      color: var(--white);
+      font-size: 20px;
+      font-weight: 400;
+      line-height: normal;
+      svg{
+        vertical-align: middle;
+      }
+      @include transition(.3s);
+      &:hover{
+        background-color: transparent;
+        color: var(--primary-color);
+        svg path{
+          fill: var(--primary-color);
+        } 
+        svg {
+          stroke: var(--primary-color);
+          stroke-width: 1px;
+        }
+      }
+
+    }
+  }
+}

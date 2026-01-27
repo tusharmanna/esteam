@@ -1,0 +1,42 @@
+/*---------------------------------------------
+    :: Best Product
+-----------------------------------------------*/
+.best-product-area {
+    padding-top: 100px;
+    padding-bottom: 85px;
+    @media #{$xs-to-md-max} {
+        padding-top: 40px;
+        padding-bottom: 50px;
+     }
+    .section-with-button {
+        max-width: 550px;
+    }
+
+    .section-title {
+        margin-bottom: 20px;
+    }
+}
+
+.all-button {
+    max-width: 350px;
+}
+
+.best-product-card {
+    @extend .product-card;
+    background-color: var(--primary-soft-color-two);
+}
+
+.best-product-img-card {
+    @extend .product-img-card;
+    background-color: var(--white);
+}
+
+.best-product-cart-card {
+    @extend .cart-card;
+    background-color: var(--primary-soft-color-two);
+}
+
+.best-product-qty-container {
+    @extend .qty-container;
+    background-color: var(--white);
+}

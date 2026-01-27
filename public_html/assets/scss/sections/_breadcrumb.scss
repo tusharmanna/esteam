@@ -1,0 +1,99 @@
+/*---------------------------------------------
+  :: Breadcrumb
+-----------------------------------------------*/
+.breadcrumb-bg {
+    background-color: rgba($color: #000000, $alpha: .4);
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("../../assets/images/gallery/breadcrumb-1.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 100% 100%;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+        z-index: -1;
+    }
+}
+
+.breadcrumb-text {
+    text-align: center;
+    padding-top: 82px;
+    padding-bottom: 58px;
+
+    @media #{$sm} {
+        padding-top: 40px;
+        padding-bottom: 25px;
+    }
+
+    @media #{$xs} {
+        padding-top: 40px;
+        padding-bottom: 25px;
+    }
+
+
+
+    .breadcrumb-nav {
+        display: inline-block;
+        margin-bottom: 25px;
+
+        @media #{$xs-to-md-max} {
+            margin-bottom: 12px;
+            padding: 7px 13px;
+        }
+    }
+
+    .breadcrumb {
+        &.listing {
+            margin-bottom: 0;
+        }
+
+        .single-list {
+            &:last-child {
+                &::before {
+                    float: left;
+                    padding-right: 14px;
+                    content: "\ea6c";
+                    font-family: "remixIcon";
+                    font-size: 16px;
+                    color: var(--white);
+                }
+            }
+
+            .single {
+                font-size: 20px;
+                font-weight: 400;
+                line-height: normal;
+                color: var(--white);
+                margin-right: 12px;
+
+                @media #{$xs-to-md-max} {
+                    font-size: 14px;
+                }
+
+                &.active {
+                    color: var(--primary-color);
+                }
+            }
+        }
+    }
+
+    .title {
+        font-size: 40px;
+        font-weight: 800;
+        line-height: 1;
+        color: var(--white);
+        margin-bottom: 20px;
+
+        @media #{$xs-to-md-max} {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+    }
+}

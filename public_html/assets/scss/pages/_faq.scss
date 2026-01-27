@@ -1,0 +1,65 @@
+/*---------------------------------------------
+    :: Faq
+-----------------------------------------------*/
+.faq-accordion{
+    .accordion-item{
+        border: none;
+        border-bottom: 1px solid var(--primary-color);
+    }
+    .accordion-button{
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 1.66;
+        color: var(--priamry-title);
+        padding-bottom: 15px;
+        padding-left: 0;
+        padding-right: 47px;
+        &:focus{
+            box-shadow: none;
+        }
+        @media #{$xs-to-md-max}{
+            font-size: 18px;
+        }
+    }
+    .accordion-body{
+        padding-top: 10px;
+        padding-bottom: 15px;
+        padding-left: 0;
+        .pera{
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.75;
+            color: var(--tertiary-title);
+            @media #{$xs-to-sm-max}{
+                font-size: 14px;
+            }
+        }
+    }
+    .accordion-button:not(.collapsed){
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+        padding-bottom: 0px;
+    }
+    .accordion-button{
+        &::after{
+          background-image: none;
+          content: "\ea4e";
+          font-family: "remixIcon";
+          font-size: 24px;
+          color: var(--primary-title);
+          font-weight: 400;
+          right: 21px;
+          top: 15px;
+          position: absolute;
+          transform: unset;
+        }
+        &:not(.collapsed)::after{
+          content: "\ea78";
+        }
+      }
+}
+.accordion-item:last-of-type .accordion-collapse {
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}

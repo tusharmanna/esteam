@@ -1,0 +1,50 @@
+/*---------------------------------------------
+    :: Category 02
+-----------------------------------------------*/
+.category-card-two {
+  position: relative;
+  background-color: var(--primary-soft-color);
+  border-radius: 20px;
+  padding: 15px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  @include transition(.3s);
+  &:hover{
+    border: 1px solid var(--primary-color);
+  }
+  img {
+    width: 100%;
+    padding: 15px;
+  }
+  .categories-content-two{
+    border-radius: 20px;
+    background-color: var(--white);
+    padding: 10px;
+    margin-top: 14px;
+    text-align: center;
+    .title {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: normal;
+      margin-bottom: 4px;
+      color: var(--primary-title);
+      @media #{$xs-to-md-max} {
+        font-size: 16px;
+      }
+      @media #{$vxs} {
+        font-size: 14px;
+      }
+    }
+    .pera {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.75;
+      color: var(--tertiary-title);
+      @media #{$xs-to-md-max} {
+        font-size: 14px;
+      }
+    }
+
+  }
+}
+

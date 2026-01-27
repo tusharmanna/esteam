@@ -1,0 +1,115 @@
+/*---------------------------------------------
+    :: Category
+-----------------------------------------------*/
+.category-area {
+    .section-title {
+        max-width: 550px;
+        margin-bottom: 0px;
+
+        @media #{$xs-to-md-max} {
+            max-width: 400px;
+        }
+    }
+
+    @media #{$xs-to-md-max} {
+        padding-top: 40px;
+        padding-bottom: 50px;
+    }
+}
+
+.section-with-button {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 32px;
+    align-items:center;
+
+    .shape {
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+
+        @media #{$xs-to-md-max} {
+            display: none;
+        }
+    }
+}
+
+
+
+.gallery-one {
+    padding: 186px 66px;
+
+    @media #{$xs-to-md-max} {
+        padding: 100px 40px;
+    }
+}
+
+.gallery-two {
+    padding: 62px 73px;
+
+    @media #{$xs-to-md-max} {
+        padding: 34px 40px;
+    }
+}
+
+.collection-card {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    border-top-right-radius: 20px;
+    padding: 23px 40px 25px 40px;
+    background-color: var(--white);
+
+    @media #{$xs-to-md-max} {
+        padding: 18px 28px;
+    }
+
+    &.sm {
+        max-width: 315px;
+    }
+
+    &.lg {
+        max-width: 405px;
+    }
+
+    .title {
+        font-size: 26px;
+        font-weight: 700;
+        line-height: 1.5;
+        margin-bottom: 4px;
+        transition: .3s;
+        @media #{$xs-to-md-max} {
+            font-size: 18px;
+        }
+    }
+
+    .pera {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.75;
+
+        @media #{$xs-to-md-max} {
+            font-size: 14px;
+        }
+    }
+
+}
+.category-card {
+    position: relative;
+    background-color: var(--primary-soft-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+
+    img {
+        width: 100%;
+    }
+    &:hover{
+        .title {
+            color: var(--primary-color);
+        }
+    }
+}

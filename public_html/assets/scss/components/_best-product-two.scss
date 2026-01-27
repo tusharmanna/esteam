@@ -1,0 +1,77 @@
+/*---------------------------------------------
+    :: Best Product 02
+-----------------------------------------------*/
+.best-product-area-two {
+    padding-top: 85px;
+    padding-bottom: 85px;
+    @media #{$xs-to-md-max} {
+       padding-top: 40px;
+       padding-bottom: 50px;
+    }
+
+    .section-with-button {
+        margin-bottom: -12px;
+    }
+
+    .section-title {
+        max-width: 550px;
+        margin-bottom: 20px;
+        @media #{$xs-to-md-max} {
+            padding-bottom: 20px !important;
+        }
+        &.title {
+            @media #{$xs-to-md-max} {
+                padding-bottom: 0px !important;
+                margin-bottom: 16px !important;
+            }
+        }
+    }
+
+    .product-pills {
+        @media #{$xs-to-md-max} {
+            gap: 20px;
+            padding-bottom: 25px;
+        }
+
+        .nav-item {
+            margin-right: 30px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+
+        .nav-link {
+            padding: 0;
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 1;
+            color: var(--tertiary-title);
+
+            &.active {
+                color: var(--primary-color);
+                background-color: transparent;
+                position: relative;
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    bottom: -5px;
+                    background-color: var(--primary-color);
+                    height: 1px;
+                    width: 100%;
+
+                }
+            }
+
+        }
+    }
+}
+
+#pills-tab .outline-pill-btn {
+	opacity: 0.3;
+    color: var(--primary-title);
+}
+#pills-tab .outline-pill-btn.active {
+	opacity: 1;
+}

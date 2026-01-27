@@ -1,0 +1,64 @@
+/*---------------------------------------------
+    :: Goal
+-----------------------------------------------*/
+.goal-area {
+    padding-top: 100px;
+    padding-bottom: 94px;
+
+    @media #{$xs-to-md-max} {
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+
+    .shape {
+        position: absolute;
+        right: 0px;
+        top: -40px;
+
+        @media #{$xs-to-md-max} {
+            display: none;
+        }
+    }
+}
+
+.circle-icon {
+    width: 90px;
+    min-width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-soft-color);
+
+    @media #{$xs-to-md-max} {
+        width: 60px;
+        min-width: 60px;
+        height: 60px;
+    }
+}
+
+.goal-card {
+    .title {
+        padding-top: 30px;
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 1.6;
+
+        @media #{$xs-to-md-max} {
+            font-size: 18px;
+            padding-top: 24px;
+        }
+    }
+
+    .pera {
+        padding-top: 10px;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.75;
+
+        @media #{$xs-to-md-max} {
+            font-size: 14px;
+        }
+    }
+}

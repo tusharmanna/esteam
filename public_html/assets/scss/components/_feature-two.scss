@@ -1,0 +1,178 @@
+/*---------------------------------------------
+    :: Feature 02
+-----------------------------------------------*/
+
+.product-card-two {
+    border-radius: 20px;
+    padding: 15px;
+    position: relative;
+    border: 1px solid transparent;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .discount-badge {
+        border-radius: 30px;
+    }
+
+    &:hover {
+        @include transition(0.3s);
+        border-color: var(--primary-color);
+        .product-info-two {
+            height: 211px;
+            margin-top: -68px;
+            @media #{$sm}{
+                height: 198px;
+            }
+            @media #{$xs}{
+                height: 198px;
+            }
+        }
+    }
+
+    .special-icon {
+        position: absolute;
+        top: 0px;
+        right: 5px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        cursor: pointer;
+        opacity: 1;
+    }
+}
+
+.icon-btn {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    color: var(--primary-title);
+    cursor: pointer;
+}
+
+.feature-card-two {
+    @extend .product-card-two;
+
+    background-color: var(--white);
+}
+
+.best-product-card-two {
+    @extend .product-card-two;
+    background-color: var(--primary-soft-color);
+}
+
+.product-img-card-two {
+    position: relative;
+
+    img {
+        width: 100%;
+        max-height: 200px;
+    }
+
+    @media #{$xs} {
+        padding: 20px;
+    }
+}
+
+.feature-img-card-two {
+    @extend .product-img-card;
+}
+
+.product-info-two {
+
+    background-color: var(--primary-soft-color);
+    border-radius: 20px;
+    text-align: center;
+    padding: 25px 30px 2px 30px;
+    position: relative;
+    height: 142px;
+    overflow: hidden;
+    transition: .4s;
+    @media #{$sm}{
+        height: 131px;
+    }
+    @media #{$xs}{
+        height: 131px;
+    }
+    .product-title {
+        font-size: 20px;
+        font-weight: 700;
+        line-height: normal;
+        color: var(--primary-title);
+        padding-top: 0px;
+        padding-left: 10px;
+        margin-bottom: 10px;
+
+        @media #{$xs-to-md-max} {
+            font-size: 16px;
+        }
+    }
+
+    .product-review-two {
+        padding-left: 10px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+
+        .product-ratting {
+            display: flex;
+            color: var(--secondary-color);
+            font-size: 18px;
+        }
+
+        .count-ratting {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1;
+            color: var(--tertiary-title);
+        }
+    }
+
+    .price-section {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px;
+
+        .price {
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 2;
+
+            @media #{$xs-to-md-max} {
+                font-size: 16px;
+            }
+
+            &.discounted {
+                text-decoration: line-through;
+                color: var(--info-title);
+            }
+        }
+    }
+
+    .cart-btn-two {
+        @extend .fill-btn-full;
+        background-color: var(--primary-color);
+        border: 1px solid transparent;
+        color: var(--white);
+        @include transition(.3s);
+        width: 100%;
+        margin-bottom: 26px;
+        display: block;
+        &:hover {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+    }
+}
+// .product-card-two:hover .product-info-two {
+//     height: 211px;
+//     margin-top: -68px;
+// }
+.best-product-info-two {
+    @extend .product-info-two;
+    background-color: var(--white);
+}
