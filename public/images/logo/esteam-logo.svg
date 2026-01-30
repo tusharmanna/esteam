@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <!-- Orange accent drops -->
+  <ellipse cx="45" cy="8" rx="6" ry="9" fill="#F5A623" transform="rotate(-20 45 8)"/>
+  <circle cx="155" cy="30" r="4" fill="#F5A623"/>
+  <ellipse cx="95" cy="52" rx="4" ry="6" fill="#F5A623" transform="rotate(-15 95 52)"/>
+
+  <!-- ESteam text -->
+  <text x="10" y="42" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="bold" fill="#2D3748">
+    <tspan fill="#F5A623">E</tspan>Steam
+  </text>
+</svg>
