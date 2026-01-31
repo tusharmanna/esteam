@@ -35,7 +35,7 @@ export default function Preloader() {
         >
           <div className="counter">
             <Image
-              src="/images/logo/logo.png"
+              src="/images/logo/esteam-logo.png"
               alt="ESteam Logo"
               width={150}
               height={50}

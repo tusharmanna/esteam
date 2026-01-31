@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import OrderRequestForm from './OrderRequestForm'
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -12,18 +13,46 @@ export default function GoalSection() {
   return (
     <section className="goal-area position-relative">
       <div className="container">
-        {/* Hero Banner */}
+        {/* Hero Banner with ESteam logo overlay */}
         <div className="row g-4">
-          <div className="col-xxl-12 col-md-12 col-sm-12">
-            <Image
-              src="/images/hero/hero-banner-1.jpg"
-              alt="ESteam Hero Banner"
-              width={1200}
-              height={400}
-              className="img-cover"
-              style={{ width: '100%', height: 'auto' }}
-              priority
-            />
+          <div className="col-xxl-12 col-md-12 col-sm-12 position-relative">
+            <div className="hero-banner-wrap" style={{ position: 'relative', display: 'inline-block', width: '100%' }}>
+              <Image
+                src="/images/hero/hero-banner-1.jpg"
+                alt="ESteam Hero Banner"
+                width={1200}
+                height={400}
+                className="img-cover"
+                style={{ width: '100%', height: 'auto' }}
+                priority
+              />
+              <div
+                className="hero-logo-overlay"
+                style={{
+                  position: 'absolute',
+                  left: '50%',
+                  top: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: 'clamp(240px, 38vw, 420px)',
+                  height: 'clamp(240px, 38vw, 420px)',
+                  borderRadius: '50%',
+                  backgroundColor: '#fff',
+                  boxShadow: '0 4px 24px rgba(0,0,0,0.15)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '1.5rem',
+                }}
+              >
+                <Image
+                  src="/images/logo/esteam-logo.png"
+                  alt="ESteam"
+                  width={280}
+                  height={84}
+                  style={{ width: '75%', height: 'auto', maxWidth: '280px' }}
+                />
+              </div>
+            </div>
           </div>
         </div>
 
@@ -39,26 +68,17 @@ export default function GoalSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <h4 className="title line-clamp-1 text-color-primary">FELIX ORDER REQUEST</h4>
+              <h4 className="title line-clamp-1 text-color-primary">ESteam Order Request</h4>
               <p className="pera text-color-tertiary">
                 After you fill out this order request, we will contact you to go over details and
                 availability before the order is completed. If you would like faster service and
                 direct information on current stock and pricing please contact us at{' '}
                 <a href="tel:+17708158221">(770) 815-8221</a> or{' '}
-                <a href="mailto:sales@felixarts.biz">sales@felixarts.biz</a>
+                <a href="mailto:sales@esteam.com">sales@esteam.com</a>
               </p>
 
-              <iframe
-                src="https://docs.google.com/forms/d/e/1FAIpQLScl_6qzJrBCUQXUKChfW8nPAX2L0y4q_y5hwyWqhLndZxENKw/viewform?embedded=true"
-                width="100%"
-                height="2075"
-                frameBorder="0"
-                marginHeight={0}
-                marginWidth={0}
-                title="Order Request Form"
-              >
-                Loading...
-              </iframe>
+              <p className="pera text-color-tertiary mb-2">Fill out the form below</p>
+              <OrderRequestForm />
             </motion.div>
           </div>
 

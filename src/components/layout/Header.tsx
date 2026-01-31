@@ -32,7 +32,7 @@ export default function Header() {
           <div className="logo">
             <Link href="/">
               <Image
-                src="/images/logo/esteam-logo.svg"
+                src="/images/logo/esteam-logo.png"
                 alt="ESteam Logo"
                 width={150}
                 height={45}

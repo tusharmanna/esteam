@@ -36,3 +36,32 @@ export interface Order {
   total: number
   date: Date
 }
+
+// Order request form (ESteam order request / lead form)
+export type CustomerType = 'new' | 'existing'
+export type OrderRequestItem =
+  | 'T-shirts'
+  | 'Coffee Mugs'
+  | 'Key Chains'
+  | 'Coasters'
+  | 'Plates'
+export type TshirtColor =
+  | 'White'
+  | 'Black'
+  | 'Red'
+  | 'Blue'
+  | 'Green'
+  | 'Yellow'
+export type PreferredContact = 'Phone' | 'Email'
+
+export interface OrderRequestFormData {
+  customerType: CustomerType
+  items: OrderRequestItem[]
+  tshirtColors: TshirtColor[]
+  productOptions: string
+  customerName: string
+  customerPhone: string
+  customerEmail: string
+  preferredContact: PreferredContact[]
+  questionsComments: string
+}

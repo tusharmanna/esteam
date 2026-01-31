@@ -27,7 +27,7 @@ export default function Footer() {
                   <div className="logo logo-large light-logo">
                     <Link href="/">
                       <Image
-                        src="/images/logo/esteam-logo-dark.svg"
+                        src="/images/logo/esteam-logo.png"
                         alt="ESteam Logo"
                         width={180}
                         height={54}
