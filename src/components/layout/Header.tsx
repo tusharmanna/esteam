@@ -15,6 +15,7 @@ export default function Header() {
   const navLinks = [
     { href: '/', label: 'Home' },
     { href: '/handicrafts', label: 'Handicrafts' },
+    { href: '/party-rentals', label: 'Party Rentals' },
   ]
 
   const isActive = (href: string) => {
