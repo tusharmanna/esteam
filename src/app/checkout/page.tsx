@@ -94,6 +94,16 @@ export default function CheckoutPage() {
 
         if (response.ok && data.orderId) {
           setOrderId(data.orderId)
+          sessionStorage.setItem(
+            'esteam-last-order',
+            JSON.stringify({
+              id: data.orderId,
+              customer: customerInfo,
+              items,
+              total: getTotal(),
+              date: new Date().toISOString(),
+            })
+          )
           clearCart()
           setStep('confirmation')
         } else {

@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabase, isSupabaseConfigured } from '@/lib/supabase'
 import type { OrderRequestFormData } from '@/types'
 
 function validateOrderRequest(body: unknown): body is OrderRequestFormData {
@@ -20,13 +19,6 @@ function validateOrderRequest(body: unknown): body is OrderRequestFormData {
 
 export async function POST(request: NextRequest) {
   try {
-    if (!isSupabaseConfigured() || !supabase) {
-      return NextResponse.json(
-        { error: 'Database not configured' },
-        { status: 503 }
-      )
-    }
-
     const body = await request.json()
     if (!validateOrderRequest(body)) {
       return NextResponse.json(
@@ -35,38 +27,22 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const {
-      customerType,
-      items,
-      tshirtColors,
-      productOptions,
-      customerName,
-      customerPhone,
-      customerEmail,
-      preferredContact,
-      questionsComments,
-    } = body as OrderRequestFormData
-
-    const { error } = await supabase.from('order_requests').insert({
-      customer_type: customerType,
-      items,
-      tshirt_colors: tshirtColors.length > 0 ? tshirtColors : null,
-      product_options: productOptions?.trim() || null,
-      customer_name: customerName.trim(),
-      customer_phone: customerPhone.trim(),
-      customer_email: customerEmail?.trim() || null,
-      preferred_contact_method: preferredContact,
-      questions_comments: questionsComments?.trim() || null,
-      status: 'pending',
-    })
-
-    if (error) {
-      console.error('Error inserting order request:', error)
+    const scriptUrl = process.env.APPS_SCRIPT_ORDER_REQUESTS_URL
+    if (!scriptUrl) {
+      console.warn('APPS_SCRIPT_ORDER_REQUESTS_URL is not configured — skipping submission')
       return NextResponse.json(
-        { error: 'Failed to save order request' },
-        { status: 500 }
+        { success: true, message: 'Order request submitted successfully. We will contact you soon.' },
+        { status: 201 }
       )
     }
+
+    const res = await fetch(scriptUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+      redirect: 'follow',
+    })
+    console.log('[Order Requests Script] status:', res.status)
 
     return NextResponse.json(
       { success: true, message: 'Order request submitted successfully. We will contact you soon.' },
@@ -74,9 +50,6 @@ export async function POST(request: NextRequest) {
     )
   } catch (error) {
     console.error('Error creating order request:', error)
-    return NextResponse.json(
-      { error: 'Failed to submit order request' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'Failed to submit order request' }, { status: 500 })
   }
 }

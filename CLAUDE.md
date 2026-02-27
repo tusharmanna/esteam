@@ -16,9 +16,9 @@ No test framework is configured.
 ## Tech Stack
 
 - **Next.js 15** with App Router (React 19, TypeScript 5.7)
-- **Supabase** for PostgreSQL database
+- **Google Forms** as the data sink for orders and B2B requests (write-only; data lands in Google Sheets)
 - **Framer Motion** for animations
-- **Bootstrap 5 + Sass** for styling
+- **Bootstrap 5 + Sass** for styling; inline `<style jsx>` blocks for component-scoped overrides
 
 ## Architecture
 
@@ -30,30 +30,49 @@ No test framework is configured.
 
 ### State Management
 - Cart state managed via React Context (`src/components/cart/CartProvider.tsx`)
-- Cart persists to localStorage
-- No global state library (Redux/Zustand)
+- All client components access cart via the `useCart()` hook exported from `CartProvider.tsx`
+- Cart persists to localStorage under key `'esteam-cart'`
+- Cart methods: `addToCart()`, `removeFromCart()`, `updateQuantity()`, `clearCart()`, `getTotal()`, `getItemCount()`
 
 ### API Routes
-- `POST/GET /api/orders` - Order CRUD
-- `POST /api/order-requests` - Lead form submissions (B2B bulk inquiries)
-- RESTful patterns with basic validation
+- `POST /api/orders` — generates order ID, submits to Google Forms, returns `{ success, orderId }`
+- `POST /api/order-requests` — validates and submits B2B inquiry to Google Forms
+- Order IDs are generated as `'EST-' + Math.random().toString(36).slice(2, 9).toUpperCase()`
+- Checkout is demo-only — no real payment processing
+- If Google Forms env vars are not set, API logs a warning and still returns success (dev fallback)
 
 ### Data
-- Static product data in `src/data/products.ts` and `src/data/rentalProducts.ts`
-- Database tables: `orders`, `order_items`, `order_requests`
-- Supabase client in `src/lib/supabase.ts` with graceful fallback if unconfigured
+- Static handicraft products in `src/data/products.ts` (12 items, categories as plain strings)
+- Static party rental products in `src/data/rentalProducts.ts` (17 categories, ~100+ items)
+- No database — orders and B2B requests are written to Google Sheets via Google Forms
+- Google Forms helpers in `src/lib/googleForms.ts`: `submitOrderToGoogleForms()`, `submitOrderRequestToGoogleForms()`, `generateOrderId()`
+- Order confirmation page (`/orders/[id]`) reads from `sessionStorage` key `'esteam-last-order'` (set at checkout); shows "Order not found" on direct URL visits or refreshes
 
 ### TypeScript
 - Path alias: `@/*` maps to `./src/*`
 - Strict mode enabled
-- Type definitions in `src/types/index.ts`
+- Core interfaces in `src/types/index.ts`: `Product`, `CartItem`, `Order`, `CustomerInfo`, `OrderRequestFormData`
+
+### Animation Pattern
+- Framer Motion used for staggered list entrances (product cards, rental rows) and page-level fade-ins
+- Typical pattern: `variants` with `container` (staggerChildren) and `item` (y + opacity) on product grids
 
 ## Environment Variables
 
-Copy `.env.example` to `.env.local`:
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+Copy `.env.example` to `.env.local`. All variables are server-side only (no `NEXT_PUBLIC_` prefix).
 
-## Database Setup
+### Google Forms Setup
 
-See `supabase/README.md` for migration and setup instructions.
+**Finding entry IDs:**
+1. Open the Google Form preview in a browser
+2. Open DevTools → Network tab
+3. Submit a test response
+4. Find the POST request to `formResponse`; the request body shows `entry.XXXXXXXXX=value`
+5. Copy those IDs to `.env.local`
+
+**Orders form** — create a Google Form with Short Answer fields:
+Order ID, First Name, Last Name, Email, Phone, Address, City, ZIP, Items, Total, Date
+
+**Order Requests form** — create a Google Form with:
+- Short Answer: Customer Name, Customer Phone, Customer Email, Product Options, Comments
+- Checkboxes: Customer Type, Items, T-shirt Colors, Preferred Contact

@@ -21,7 +21,8 @@
       "Bash(npm uninstall:*)",
       "Bash(git checkout:*)",
       "Bash(git merge:*)",
-      "Bash(vercel:*)"
+      "Bash(vercel:*)",
+      "Bash(git -C \"C:\\\\work\\\\esteam\" log --oneline -20)"
     ]
   }
 }
