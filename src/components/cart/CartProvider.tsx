@@ -3,6 +3,12 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
 import { Product, CartItem } from '@/types'
 
+const DISCOUNT_CODES: Record<string, number> = {
+  SAVE10: 10,
+  SAVE20: 20,
+  ESTEAM15: 15,
+}
+
 interface CartContextType {
   items: CartItem[]
   addToCart: (product: Product) => void
@@ -11,6 +17,10 @@ interface CartContextType {
   clearCart: () => void
   getTotal: () => number
   getItemCount: () => number
+  discountCode: string | null
+  discountPercent: number
+  applyDiscount: (code: string) => { success: boolean; message: string }
+  removeDiscount: () => void
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
@@ -20,6 +30,8 @@ const CART_STORAGE_KEY = 'esteam-cart'
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([])
   const [isLoaded, setIsLoaded] = useState(false)
+  const [discountCode, setDiscountCode] = useState<string | null>(null)
+  const [discountPercent, setDiscountPercent] = useState(0)
 
   // Load cart from localStorage on mount
   useEffect(() => {
@@ -77,6 +89,23 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const clearCart = () => {
     setItems([])
+    setDiscountCode(null)
+    setDiscountPercent(0)
+  }
+
+  const applyDiscount = (code: string): { success: boolean; message: string } => {
+    const upper = code.trim().toUpperCase()
+    if (upper in DISCOUNT_CODES) {
+      setDiscountCode(upper)
+      setDiscountPercent(DISCOUNT_CODES[upper])
+      return { success: true, message: `${DISCOUNT_CODES[upper]}% discount applied!` }
+    }
+    return { success: false, message: 'Invalid discount code.' }
+  }
+
+  const removeDiscount = () => {
+    setDiscountCode(null)
+    setDiscountPercent(0)
   }
 
   const getTotal = () => {
@@ -100,6 +129,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
         clearCart,
         getTotal,
         getItemCount,
+        discountCode,
+        discountPercent,
+        applyDiscount,
+        removeDiscount,
       }}
     >
       {children}

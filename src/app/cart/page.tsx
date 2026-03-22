@@ -1,12 +1,25 @@
 'use client'
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useCart } from '@/components/cart/CartProvider'
 
 export default function CartPage() {
-  const { items, removeFromCart, updateQuantity, getTotal, clearCart } = useCart()
+  const { items, removeFromCart, updateQuantity, getTotal, clearCart, discountCode, discountPercent, applyDiscount, removeDiscount } = useCart()
+  const [codeInput, setCodeInput] = useState('')
+  const [codeMessage, setCodeMessage] = useState<{ text: string; success: boolean } | null>(null)
+
+  const handleApplyCode = () => {
+    const result = applyDiscount(codeInput)
+    setCodeMessage({ text: result.message, success: result.success })
+    if (result.success) setCodeInput('')
+  }
+
+  const subtotal = getTotal()
+  const discountAmount = subtotal * discountPercent / 100
+  const finalTotal = subtotal - discountAmount
 
   if (items.length === 0) {
     return (
@@ -155,16 +168,56 @@ export default function CartPage() {
               <h2 className="summary-title">Order Summary</h2>
               <div className="summary-row">
                 <span>Subtotal ({items.length} items)</span>
-                <span>${getTotal().toFixed(2)}</span>
+                <span>${subtotal.toFixed(2)}</span>
               </div>
               <div className="summary-row">
                 <span>Shipping</span>
                 <span className="free-shipping">FREE</span>
               </div>
+
+              {/* Discount Code */}
+              {discountCode ? (
+                <div className="discount-applied">
+                  <div className="discount-row">
+                    <span>
+                      <i className="ri-price-tag-3-line"></i> {discountCode} ({discountPercent}% off)
+                    </span>
+                    <button className="remove-code-btn" onClick={removeDiscount} aria-label="Remove discount">
+                      <i className="ri-close-line"></i>
+                    </button>
+                  </div>
+                  <div className="summary-row discount-amount">
+                    <span>Discount</span>
+                    <span>-${discountAmount.toFixed(2)}</span>
+                  </div>
+                </div>
+              ) : (
+                <div className="discount-section">
+                  <div className="discount-input-row">
+                    <input
+                      type="text"
+                      className="discount-input"
+                      placeholder="Discount code"
+                      value={codeInput}
+                      onChange={(e) => { setCodeInput(e.target.value); setCodeMessage(null) }}
+                      onKeyDown={(e) => e.key === 'Enter' && handleApplyCode()}
+                    />
+                    <button className="apply-code-btn" onClick={handleApplyCode} disabled={!codeInput.trim()}>
+                      Apply
+                    </button>
+                  </div>
+                  {codeMessage && (
+                    <p className={`code-message ${codeMessage.success ? 'success' : 'error'}`}>
+                      {codeMessage.text}
+                    </p>
+                  )}
+                </div>
+              )}
+
               <hr />
               <div className="summary-row total">
                 <span>Total</span>
-                <span>${getTotal().toFixed(2)}</span>
+                <span>${finalTotal.toFixed(2)}</span>
               </div>
               <Link href="/checkout" className="checkout-btn">
                 Proceed to Checkout
@@ -318,6 +371,84 @@ export default function CartPage() {
         }
         .free-shipping {
           color: var(--primary-green);
+          font-weight: 600;
+        }
+        .discount-section {
+          margin: 0.5rem 0;
+        }
+        .discount-input-row {
+          display: flex;
+          gap: 0.5rem;
+        }
+        .discount-input {
+          flex: 1;
+          padding: 0.5rem 0.75rem;
+          border: 1px solid #ddd;
+          border-radius: 6px;
+          font-size: 0.9rem;
+          outline: none;
+          transition: border-color 0.2s;
+        }
+        .discount-input:focus {
+          border-color: var(--primary-color);
+        }
+        .apply-code-btn {
+          padding: 0.5rem 1rem;
+          background: var(--primary-color);
+          color: #fff;
+          border: none;
+          border-radius: 6px;
+          font-weight: 600;
+          font-size: 0.85rem;
+          cursor: pointer;
+          transition: background 0.2s;
+          white-space: nowrap;
+        }
+        .apply-code-btn:hover:not(:disabled) {
+          background: #8d7249;
+        }
+        .apply-code-btn:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+        .code-message {
+          margin: 0.4rem 0 0;
+          font-size: 0.8rem;
+          font-weight: 500;
+        }
+        .code-message.success {
+          color: var(--primary-green);
+        }
+        .code-message.error {
+          color: var(--primary-red);
+        }
+        .discount-applied {
+          margin: 0.5rem 0;
+        }
+        .discount-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          background: #f0faf0;
+          border: 1px solid #c3e6cb;
+          border-radius: 6px;
+          padding: 0.5rem 0.75rem;
+          margin-bottom: 0.5rem;
+          font-size: 0.85rem;
+          font-weight: 600;
+          color: var(--primary-green);
+        }
+        .remove-code-btn {
+          background: none;
+          border: none;
+          color: var(--primary-green);
+          cursor: pointer;
+          padding: 0;
+          line-height: 1;
+          font-size: 1rem;
+        }
+        .discount-amount {
+          color: var(--primary-green) !important;
           font-weight: 600;
         }
         .checkout-btn {

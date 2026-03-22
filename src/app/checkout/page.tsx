@@ -10,7 +10,10 @@ import { CartItem, CustomerInfo, PaymentInfo } from '@/types'
 
 export default function CheckoutPage() {
   const router = useRouter()
-  const { items, getTotal, clearCart } = useCart()
+  const { items, getTotal, clearCart, discountCode, discountPercent } = useCart()
+  const subtotal = getTotal()
+  const discountAmount = subtotal * discountPercent / 100
+  const finalTotal = subtotal - discountAmount
   const [step, setStep] = useState<'info' | 'payment' | 'confirmation'>('info')
   const [isProcessing, setIsProcessing] = useState(false)
   const [orderId, setOrderId] = useState('')
@@ -86,7 +89,9 @@ export default function CheckoutPage() {
           body: JSON.stringify({
             customer: customerInfo,
             items: items,
-            total: getTotal(),
+            total: finalTotal,
+            discountCode: discountCode || undefined,
+            discountPercent: discountPercent || undefined,
           }),
         })
 
@@ -100,7 +105,9 @@ export default function CheckoutPage() {
               id: data.orderId,
               customer: customerInfo,
               items,
-              total: getTotal(),
+              total: finalTotal,
+              discountCode: discountCode || undefined,
+              discountPercent: discountPercent || undefined,
               date: new Date().toISOString(),
             })
           )
@@ -280,7 +287,7 @@ export default function CheckoutPage() {
                 </div>
               </div>
               <div className="col-lg-4">
-                <OrderSummary items={items} total={getTotal()} />
+                <OrderSummary items={items} total={subtotal} discountCode={discountCode} discountPercent={discountPercent} />
               </div>
             </motion.div>
           )}
@@ -384,7 +391,7 @@ export default function CheckoutPage() {
                             <span className="spinner"></span> Processing...
                           </>
                         ) : (
-                          `Pay $${getTotal().toFixed(2)}`
+                          `Pay $${finalTotal.toFixed(2)}`
                         )}
                       </button>
                     </div>
@@ -392,7 +399,7 @@ export default function CheckoutPage() {
                 </div>
               </div>
               <div className="col-lg-4">
-                <OrderSummary items={items} total={getTotal()} />
+                <OrderSummary items={items} total={subtotal} discountCode={discountCode} discountPercent={discountPercent} />
               </div>
             </motion.div>
           )}
@@ -632,7 +639,10 @@ export default function CheckoutPage() {
 }
 
 // Order Summary Component
-function OrderSummary({ items, total }: { items: CartItem[]; total: number }) {
+function OrderSummary({ items, total, discountCode, discountPercent }: { items: CartItem[]; total: number; discountCode: string | null; discountPercent: number }) {
+  const discountAmount = total * discountPercent / 100
+  const finalTotal = total - discountAmount
+
   return (
     <div className="order-summary-card">
       <h3 className="summary-title">Order Summary</h3>
@@ -659,10 +669,16 @@ function OrderSummary({ items, total }: { items: CartItem[]; total: number }) {
         <span>Shipping</span>
         <span className="free">FREE</span>
       </div>
+      {discountCode && discountPercent > 0 && (
+        <div className="summary-row discount">
+          <span><i className="ri-price-tag-3-line"></i> {discountCode} ({discountPercent}% off)</span>
+          <span>-${discountAmount.toFixed(2)}</span>
+        </div>
+      )}
       <hr />
       <div className="summary-row total">
         <span>Total</span>
-        <span>${total.toFixed(2)}</span>
+        <span>${finalTotal.toFixed(2)}</span>
       </div>
 
       <style jsx>{`
@@ -750,6 +766,11 @@ function OrderSummary({ items, total }: { items: CartItem[]; total: number }) {
         .free {
           color: var(--primary-green);
           font-weight: 600;
+        }
+        .summary-row.discount {
+          color: var(--primary-green);
+          font-weight: 600;
+          font-size: 0.85rem;
         }
       `}</style>
     </div>

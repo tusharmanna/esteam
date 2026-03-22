@@ -33,12 +33,16 @@ No test framework is configured.
 - All client components access cart via the `useCart()` hook exported from `CartProvider.tsx`
 - Cart persists to localStorage under key `'esteam-cart'`
 - Cart methods: `addToCart()`, `removeFromCart()`, `updateQuantity()`, `clearCart()`, `getTotal()`, `getItemCount()`
+- Discount code support: `applyDiscount(code)` returns `{ success, message }`; `removeDiscount()` clears it
+- Discount state: `discountCode` (string | null), `discountPercent` (number, e.g. 10 = 10%)
+- Hardcoded discount codes in `CartProvider.tsx`: `SAVE10` (10%), `SAVE20` (20%), `ESTEAM15` (15%)
 
 ### API Routes
-- `POST /api/orders` — generates order ID, submits to Google Forms, returns `{ success, orderId }`
+- `POST /api/orders` — generates order ID, submits to Google Forms, returns `{ success, orderId }`; accepts `discountCode` and `discountPercent` fields
 - `POST /api/order-requests` — validates and submits B2B inquiry to Google Forms
 - Order IDs are generated as `'EST-' + Math.random().toString(36).slice(2, 9).toUpperCase()`
-- Checkout is demo-only — no real payment processing
+- Checkout is demo-only — no real payment processing (no PayPal, Stripe, or Square)
+- Checkout flow: 2-step (Customer Info → Payment); demo card form collects card number, name, expiry, CVV but does not charge anything
 - If Google Forms env vars are not set, API logs a warning and still returns success (dev fallback)
 
 ### Data
@@ -51,7 +55,7 @@ No test framework is configured.
 ### TypeScript
 - Path alias: `@/*` maps to `./src/*`
 - Strict mode enabled
-- Core interfaces in `src/types/index.ts`: `Product`, `CartItem`, `Order`, `CustomerInfo`, `OrderRequestFormData`
+- Core interfaces in `src/types/index.ts`: `Product`, `CartItem`, `Order`, `CustomerInfo`, `OrderRequestFormData`, `PaymentInfo`
 
 ### Animation Pattern
 - Framer Motion used for staggered list entrances (product cards, rental rows) and page-level fade-ins
